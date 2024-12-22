@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('auths', function (Blueprint $table) {
+        Schema::create('table_post_types', function (Blueprint $table) {
             $table->id();
+            $table->string('type_name')->nullable();
+            $table->string('type_img_path')->nullable();
+            $table->string('type_img_name')->nullable();
+            $table->binary('type_img_data')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('auths');
+        Schema::dropIfExists('table_post_types');
     }
 };

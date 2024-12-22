@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->constrained()->onDelete('cascade');
-            $table->string('title')->nullable();
-            $table->text('content')->nullable();
-            $table->text('type')->nullable();
+            $table->string('title_name')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('address')->nullable();
+            $table->float('zip_code')->nullable();
+            $table->double('tel_phone')->nullable();
+            $table->timestamp('birth_day')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('user_profiles');
     }
 };

@@ -53,11 +53,9 @@ export const usePostsStore = defineStore("postsStore", {
     /********************* Create a Post *************************/
     async createPost(formData) {
       try {
-
-  
-        // Make the POST request
+    
         const res = await fetch(`/api/posts`, {
-          method: "POST",
+          method: "POST", 
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -77,19 +75,13 @@ export const usePostsStore = defineStore("postsStore", {
             this.router.push({ name: 'ReportPostView' });
           });
         } else {
-          console.error("Failed:", data);
+          console.error("Failed:", data); 
           this.errors = data.errors || {};
         }
       } catch (error) {
         console.error("Error in createPost function:", error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong while creating the post!',
-        });
       }
     },
-    
     
 
     /********************* Edit a Post *************************/

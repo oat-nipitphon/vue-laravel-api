@@ -60,32 +60,6 @@ export const useAuthStore = defineStore('authStore', {
 
         },
 
-        // async authenticate(apiRoute, formData) {
-        //   try {
-        //     const res = await fetch(`/api/${apiRoute}`, {
-        //       method: 'POST',
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify(formData),
-        //     });
-
-        //     if (res.ok) {
-
-        //       const data = await res.json(); 
-        //       localStorage.setItem('token', data.token);
-        //       this.router.push({ name: 'DashboardView' });
-
-        //     } else {
-        //       const data = await res.json();
-        //       this.errors = data.errors || {};
-        //     }
-        //   } catch (error) {
-        //     console.error('Authentication error:', error);
-        //   }
-        // },
-
-
         /********************* Logout *************************/
         async logout() {
             try {

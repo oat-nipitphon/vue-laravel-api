@@ -26,7 +26,7 @@ const formData = reactive({
 <template>
   <div class="row">
     <div
-      class="col-md-12"
+      class="col-md-7"
       style="margin-top: 40px; margin-left: auto; margin-right: auto"
     >
       <form
@@ -34,17 +34,10 @@ const formData = reactive({
         @submit.prevent="authenticate(`register`, formData)"
       >
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <h1 class="title">
               Register a new account
-              <!-- {{ authStore }} -->
             </h1>
-          </div>
-          <div class="col-md-6 text-center">
-            <label class="error" style="font-size: 16px">
-              {{ dateTimeNow() }}
-            </label>
-            <!-- <input type="hidden" v-model="formData.created" /> -->
           </div>
         </div>
         <label style="margin-top: 15px">Status</label>

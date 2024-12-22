@@ -23,7 +23,7 @@ class PostController extends Controller
   
     {
         return response()->json([
-            'posts' => Post::with('user')->get(),
+            'posts' => Post::with('user')->orderBy('created_at', 'desc')->get(),
             'message' => 'get user and post success',
             'status' => 200
         ], 200);
@@ -60,33 +60,58 @@ class PostController extends Controller
     // public function store(StorePostRequest $request)
     public function store(Request $request)
     {
-        try {
-            $fields = $request->validate([
-                'user_id' => 'required',
-                'title' => 'required|string|max:255',
-                'body' => 'required|string',
-            ]);
 
-            $user = User::findOrFail($fields['user_id']);
-    
-            $post = Post::create([
-                'user_id' =>$fields['user_id'],
-                'title' => $fields['title'],
-                'body' => $fields['body'],
+        // return $request;
+        try {
+            // Validate incoming request data
+            $fields = $request->validate([
+                'user_id' => 'required', // Ensure the user exists
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+                'postType' => 'required|string',
+                'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Handle file validation
             ]);
     
+            // Find the user (throws 404 if user not found)
+            // $user = User::findOrFail($fields['user_id']);
+
+
+            // Create the post
+            $post = Post::create([
+                'user_id' => $fields['user_id'],
+                'title' => $fields['title'],
+                'content' => $fields['content'],
+                'type' => $fields['postType'],
+            ]);
+    
+            // Handle file upload if present
+            // if ($request->hasFile('photo')) {
+            //     $photo = $request->file('photo');
+            //     $photoPath = $photo->store('posts', 'public'); // Store file in the 'public' disk under 'posts' folder
+    
+            //     // Optionally, associate the photo with the post (if you have a PhotoPost model)
+            //     $post->photoPosts()->create([
+            //         'photo_name' => $photo->getClientOriginalName(),
+            //         'photo_path' => $photoPath,
+            //         'photo_data' => file_get_contents($photo->getRealPath()),
+            //     ]);
+            // }
+    
+            // Return a successful response with the post details
             return response()->json([
                 'status' => 201,
                 'message' => 'Post created successfully',
                 'post' => $post,
             ], 201);
-
-         } catch (\Exception $error) {
-            return [
-                'error post controller laravel' => $error->getMessage(),
-            ];
-         }
+    
+        } catch (\Exception $error) {
+            // Return error response
+            return response()->json([
+                'error' => 'Error creating post: ' . $error->getMessage(),
+            ], 500);
+        }
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -98,7 +123,8 @@ class PostController extends Controller
             // Validate incoming data
             $fields = $request->validate([
                 'title' => 'required|string|max:255',
-                'body' => 'required|string',
+                'content' => 'required|string',
+                'postType' => 'required|string',
             ]);
     
             // Find the post by ID
@@ -114,7 +140,8 @@ class PostController extends Controller
             // Update the post with validated data
             $post->update([
                 'title' => $fields['title'],
-                'body' => $fields['body']
+                'content' => $fields['content'],
+                'type' => $fields['postType']
             ]);
     
             // Return the updated post in the response

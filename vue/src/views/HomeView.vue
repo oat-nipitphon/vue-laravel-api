@@ -41,14 +41,14 @@ onMounted(async () => {
 }
 .img-laravel {
   margin: auto;
-  margin-top: 25%;
-  width: 380px;
-  height: 140px;
+  margin-top: 40%;
+  width: 50%;
+  height: 30%;
 }
 .img-vue {
   margin: auto;
-  margin-top: 25%;
-  width: 380px;
-  height: 140px;
+  margin-top: 40%;
+  width: 50%;
+  height: 30%;
 }
 </style>

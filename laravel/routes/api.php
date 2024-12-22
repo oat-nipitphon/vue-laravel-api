@@ -9,7 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PhotoPostController;
 use App\Http\Controllers\UserController;
-
+use App\Models\PostType;
 
 
 
@@ -23,8 +23,20 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/users', function () {
+    return response()->json(User::all(), 200);
+});
+
 Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth:sanctum');
+
+Route::get('/post_types', function () {
+    return response()->json([
+        'status' => 200,
+        'message' => "api get post type success.",
+        'post_types' => PostType::all()
+    ], 200);
+});
 
 Route::apiResource('/posts', PostController::class)
     ->middleware('auth:sanctum');

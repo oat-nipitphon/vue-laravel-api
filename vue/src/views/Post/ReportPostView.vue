@@ -26,11 +26,16 @@ onMounted(async () => {
           v-for="post in posts"
           :key="post.id"
         >
-          <h1 class="font-bold text-3xl">
+          <div class="row">
+            <h1 class="font-bold text-3xl">
             {{ post.title }}
-          </h1>
+            </h1>
+            <h5>
+              {{ post.type }}
+            </h5>
+          </div>
           <div class="text-xs text-slate-600 mb-4">
-            {{ post.body }}
+            {{ post.content }}
           </div>
 
           <div>

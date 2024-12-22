@@ -15,7 +15,8 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'body',
+        'content',
+        'type',
         'created_at',
         'updated_at'
     ];
@@ -36,6 +37,10 @@ class Post extends Model
     public function photoPost(): HasOne
     {
         return $this->hasOne(PhotoPost::class);
+    }
+
+    public function postType() : HasOne {
+        return $this->hasOne(PostType::class);
     }
 
 }

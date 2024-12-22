@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('photo_posts', function (Blueprint $table) {
             $table->id();                  
-            $table->bigInteger('post_id')->nullable(); 
-            $table->string('photo_name');    
-            $table->string('photo_path');   
-            $table->binary('photo_data');    
+            $table->bigInteger('post_id')->constrained()->onDelete('cascade');
+            $table->string('photo_path')->nullable();  
+            $table->string('photo_name')->nullable();   
+            $table->binary('photo_data')->nullable();   
             $table->timestamps();       
         });
     }

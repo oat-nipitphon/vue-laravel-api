@@ -1,15 +1,4 @@
 <?php
-
-// return [
-//     'paths' => ['api/*'], // This ensures the CORS headers are applied to your API routes
-//     'allowed_methods' => ['*'], // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
-//     'allowed_origins' => ['http://localhost:5173'], // Allow your frontend's origin
-//     'allowed_headers' => ['*'], // Allow all headers
-//     'exposed_headers' => [],
-//     'max_age' => 0,
-//     'supports_credentials' => true,
-// ];
-
 return [
 
     /*
