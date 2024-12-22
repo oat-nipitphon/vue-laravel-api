@@ -11,6 +11,14 @@ use App\Http\Requests\UpdatePhotoPostRequest;
 
 class PhotoPostController extends Controller
 {
+
+    public function uploadImg(Request $request) {
+        return response()->json([
+            'req' => $request,
+            'message' => "success."
+        ], 201);
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -80,4 +80,8 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function userPhotos():BelongsTo {
+        return $this->belongsTo(UserPhoto::class);
+    }
+
 }

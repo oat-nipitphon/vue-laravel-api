@@ -9,6 +9,7 @@ import ReportPostView from '../views/Post/ReportPostView.vue'
 import NewPostView from '../views/Post/NewPostView.vue'
 import DetailPostView from '../views/Post/DetailPostView.vue'
 import UpdatePostView from '../views/Post/UpdatePostView.vue'
+import ReportUserView from '../views/Auth/ReportUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,12 @@ const router = createRouter({
       path: '/Dashboard',
       name: 'DashboardView',
       component: DashboardView,
+      meta: { auth: true }
+    },
+    {
+      path: '/ReportUserView',
+      name: 'ReportUserView',
+      component: ReportUserView,
       meta: { auth: true }
     },
     {

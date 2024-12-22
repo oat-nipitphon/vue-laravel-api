@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Models\PostType;
 
 
+Route::post('/upload_img', [PhotoPostController::class, 'uploadImg']);
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
