@@ -1,15 +1,14 @@
 import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import FromView from '../views/FromView.vue'
-import RegisterView from '../views/Auth/RegisterView.vue'
-import LoginView from '../views/Auth/LoginView.vue'
-import DashboardView from '../views/Auth/DashboardView.vue'
-import ReportPostView from '../views/Post/ReportPostView.vue'
-import NewPostView from '../views/Post/NewPostView.vue'
-import DetailPostView from '../views/Post/DetailPostView.vue'
-import UpdatePostView from '../views/Post/UpdatePostView.vue'
-import ReportUserView from '../views/Auth/ReportUserView.vue'
+import HomeView from '@/views/HomeView.vue'
+import RegisterView from '@/views/Auth/RegisterView.vue'
+import LoginView from '@/views/Auth/LoginView.vue'
+import DashboardView from '@/views/Auth/DashboardView.vue'
+import ReportPostView from '@/views/Post/ReportPostView.vue'
+import NewPostView from '@/views/Post/NewPostView.vue'
+import DetailPostView from '@/views/Post/DetailPostView.vue'
+import UpdatePostView from '@/views/Post/UpdatePostView.vue'
+import ReportUserView from '@/views/Auth/ReportUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,11 +17,6 @@ const router = createRouter({
       path: '/',
       name: 'HomeView',
       component: HomeView,
-    },
-    {
-      path: '/Form',
-      name: 'FormView',
-      component: FromView,
     },
     {
       path: '/Login',

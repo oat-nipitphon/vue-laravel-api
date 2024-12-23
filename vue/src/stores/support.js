@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 
 export const useSupportStore = defineStore("supportStore", {
@@ -5,29 +6,37 @@ export const useSupportStore = defineStore("supportStore", {
     dataStore: null,
     errors: null
   }),
+
+  // ******************* Start Actions *******************//
   actions: {
-    async uploadImg(formData) {
-      try {
-        const res = await fetch(`/api/upload_img`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-          body: formData, // Send the FormData directly without JSON.stringify
-        });
+    
+    async uploadUserPhoto(formData) {
 
-        const data = await res.json(); // Await the response to parse the JSON
+      const payload = new FormData();
+      payload.append('file_photo', formData.filePhoto);
 
-        if (data.errors) {
-          console.log("Store support upload img error: ", data.errors);
-          this.errors = data.errors;
-        } else {
-          this.dataStore = data.req;  // Store the response if successful
-        }
-      } catch (error) {
-        console.error("Upload image failed: ", error);
-        this.errors = error;  // Handle any network errors
+      const response = await fetch(`/api/upload_file_photo`, {
+        method: "POST",
+        body: payload
+      });
+
+      const data = response.json();
+      console.log("Store log data return res : ", data);
+
+    if (response.ok) {
+      console.log("Store log data return success:", data);
+      this.dataStore = data; // Save the response data if needed
+      if (response.status === 200) {
+        console.log("status === 200 ", response.status);
       }
+    } else {
+      console.error("Store log data error response != 200:", data);
+      this.errors = data.errors; // Save errors if needed
     }
+
+    }
+
   }
+  // ******************* End Actions *******************//
+
 });

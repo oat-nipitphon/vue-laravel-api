@@ -2,6 +2,9 @@
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { RouterLink } from "vue-router";
+import ImageFile from "@/components/ImageFile.vue";
+import UploadFilePhoto from "@/components/UploadFilePhoto.vue";
+
 const authStore = useAuthStore();
 const users = ref([]);
 
@@ -20,35 +23,42 @@ onMounted(async () => {
           <img
             class="img-vue"
             alt="vue"
-            src="https://svgmix.com/uploads/ab048e-vue.svg"
+            src="../assets/icon/vue.png"
           />
         </div>
         <div class="col-md-6">
           <img
             class="img-laravel"
             alt="laravel"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Logo.min.svg/2560px-Logo.min.svg.png"
+            src="../assets/icon/laravel.png"
           />
         </div>
+      </div>
+    </div>
+    <div class="ibox-body">
+      <div class="ibox-form-upload">
+        <ImageFile /> <br>
+        <UploadFilePhoto />
       </div>
     </div>
   </div>
 </template>
 <style>
 .ibox-img {
-  width: 50%;
-  display: inline;
+  max-width: 100%;
+  margin-top: 30px;
+}
+.ibox-body {
+  margin-top: 20px;
 }
 .img-laravel {
   margin: auto;
-  margin-top: 40%;
-  width: 50%;
-  height: 30%;
+  width: 290px; 
+  height: 160px;
 }
 .img-vue {
   margin: auto;
-  margin-top: 40%;
-  width: 50%;
-  height: 30%;
+  width: 270px;
+  height: 140px;
 }
 </style>

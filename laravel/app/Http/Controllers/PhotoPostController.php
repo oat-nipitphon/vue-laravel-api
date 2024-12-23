@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PhotoPost;
 use App\Models\User;
+use App\Models\UserPhoto;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePhotoPostRequest;
@@ -12,12 +13,7 @@ use App\Http\Requests\UpdatePhotoPostRequest;
 class PhotoPostController extends Controller
 {
 
-    public function uploadImg(Request $request) {
-        return response()->json([
-            'req' => $request,
-            'message' => "success."
-        ], 201);
-    }
+
 
     /**
      * Display a listing of the resource.
@@ -33,11 +29,6 @@ class PhotoPostController extends Controller
     // public function store(StorePhotoPostRequest $request)
     public function store(Request $request)
     {
-
-        return response()->json([
-            $request->input('formData')
-        ]);
-
         $request->validate([
             // 'user_id' => 'required',
             'postImg' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
