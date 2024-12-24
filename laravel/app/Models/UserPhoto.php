@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\hasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Sanctum\HasApiTokens;
 
 class UserPhoto extends Model
 {
+    use HasApiTokens;
     protected $fillable = [
         'id',
         'user_id',
@@ -16,8 +19,8 @@ class UserPhoto extends Model
         'photo_data'
     ];
 
-    public function user () :BelongsTo {
-        return $this->BelongsTo(User::class);
+    public function user () :HasOne {
+        return $this->hasOne(User::class);
     }
 
 }

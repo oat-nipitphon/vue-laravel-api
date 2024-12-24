@@ -24,27 +24,40 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/get_all_users', function () {
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth:sanctum');
+Route::get('/post_types', [PostTypeController::class, 'index'])->middleware('auth:sanctum');
+Route::apiResource('/posts', PostController::class) ->middleware('auth:sanctum');
 
-    $get_all_users = User::with('userProfiles', 'userPhotos')->get();
+// Route API Success insert file name and move file folder pubilc laravel
+Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
 
-    return response()->json($get_all_users, 200);
-    
-});
 
-Route::get('/user_profiles', function () {
+
+// **********************  TEST ROUTE API **************************** //
+
+Route::get('/get_users', function () {
     return response()->json([
-        'user_profiles' => UserPhoto::all()
+        'users' => User::all()
     ], 200);
 });
 
-Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth:sanctum');
+Route::get('/get_user_profiles', function () {
+    return response()->json([
+        'user_profiles' => UserProfile::all()
+    ], 200);
+});
 
-Route::get('/post_types', [PostTypeController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/get_full_users_posts', function () {
 
-Route::apiResource('/posts', PostController::class) ->middleware('auth:sanctum');
+    $get_full_users = User::with('userProfiles', 'userPhotos', 'posts')->get();
 
-Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
+    return response()->json([
+        'message' => "Get full data user profile photo and photo !!",
+        'full_users_posts' => $get_full_users
+    ], 200);
+    
+});
+
 Route::post('/upload_file_photo', [UserProfileController::class, 'uploadPhoto']);
 
 

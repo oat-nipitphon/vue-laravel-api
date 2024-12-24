@@ -3,12 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import RegisterView from '@/views/Auth/RegisterView.vue'
 import LoginView from '@/views/Auth/LoginView.vue'
-import DashboardView from '@/views/Auth/DashboardView.vue'
+import DashboardView from '@/views/DashboardView.vue'
 import ReportPostView from '@/views/Post/ReportPostView.vue'
 import NewPostView from '@/views/Post/NewPostView.vue'
 import DetailPostView from '@/views/Post/DetailPostView.vue'
 import UpdatePostView from '@/views/Post/UpdatePostView.vue'
-import ReportUserView from '@/views/Auth/ReportUserView.vue'
+import ReportUserView from '@/views/User/ReportUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,13 +19,13 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/Login',
+      path: '/LoginView',
       name: 'LoginView',
       component: LoginView,
       meta: { guest: true }
     },
     {
-      path: '/Register',
+      path: '/RegisterView',
       name: 'RegisterView',
       component: RegisterView,
       meta: { guest: true }

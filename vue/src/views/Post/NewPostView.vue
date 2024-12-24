@@ -141,7 +141,6 @@ const formSubmitNewPost = async () => {
   payload.append("fileImg", fileInput.value);
 
   try {
-    // await createPost(payload);
     const response = await axiosAPI.post("/api/posts", payload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

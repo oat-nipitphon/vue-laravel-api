@@ -20,7 +20,6 @@ onMounted(async () => {
     <h1>ReportUserView</h1>
     <label> Table Report Users. </label>
     <div class="row">
-      <!-- <TableDataReportUser /> -->
     </div>
     <div class="row" v-if="userProfiles.length">
       <div
@@ -28,7 +27,6 @@ onMounted(async () => {
         :key="userProfile.id"
         class="col-md-4 text-center"
       >
-      <!-- <img src="vue/public/uploads/1735042533.jpg" alt="User Image" /> -->
       <img
         :src="`/uploads/${userProfile.photo_name}`"
         alt="User Image"

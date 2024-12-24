@@ -85,8 +85,8 @@ class User extends Authenticatable
         return $this->hasOne(UserProfile::class);
     }
 
-    public function userPhotos():BelongsTo {
-        return $this->belongsTo(UserPhoto::class);
+    public function userPhotos():HasOne {
+        return $this->hasOne(UserPhoto::class);
     }
 
 }

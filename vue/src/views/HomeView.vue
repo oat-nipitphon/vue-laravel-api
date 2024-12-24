@@ -37,8 +37,7 @@ onMounted(async () => {
     </div>
     <div class="ibox-body">
       <div class="ibox-form-upload">
-        <ImageFile /> <br>
-        <UploadFilePhoto />
+
       </div>
     </div>
   </div>
@@ -46,7 +45,7 @@ onMounted(async () => {
 <style>
 .ibox-img {
   max-width: 100%;
-  margin-top: 30px;
+  margin-top: 20%;
 }
 .ibox-body {
   margin-top: 20px;
