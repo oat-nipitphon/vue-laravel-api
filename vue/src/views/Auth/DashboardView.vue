@@ -1,53 +1,62 @@
 <script setup>
-import { useAuthStore } from "@/stores/auth";
 import { ref, onMounted } from "vue";
-import { RouterLink } from "vue-router";
-const authStore = useAuthStore();
+import axiosAPI from "@/services/axiosAPI";
+import { useAuthStore } from "@/stores/auth";
+import ReportSystem from "@/views/Auth/ReportSystem.vue";
+import { useRouter } from "vue-router";
 
-// Fetch user data when the component is mounted
+const router = useRouter();
+const authStore = useAuthStore();
+const file = ref(null);
+
+const onFileChange = (e) => {
+  file.value = e.target.files[0];
+};
+
+const uploadFile = async () => {
+  const formData = new FormData();
+  formData.append("user_id", authStore.storeUser.id);
+  formData.append("file", file.value);
+
+  try {
+    const response = await axiosAPI.post("/api/uploadFilePhoto", formData, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (response.data) {
+      router.push({ name: 'ReportUserView' });
+      console.log("upload photo success : ", response.data);
+    } else {
+
+    }
+
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 onMounted(async () => {
   await authStore.getUsers();
 });
 
-// Define the system options with their ids and corresponding view names
-const systemIboxs = ref([
-  { 
-    id: 1, 
-    link: "ReportUserView", 
-    name: "User management system",
-    content: "users information, add, delete, edit information or status."
-  },
-  { 
-    id: 2, 
-    link: "ReportPostView", 
-    name: "Post management system",
-    content: "posts information, add, delete, edit information or type." 
-  },
-]);
 </script>
 
 <template>
-  <div
-    class="row bg-white py-24 sm:py-5"
-    v-if="authStore.storeUser && systemIboxs.length"
-  >
-
-      <!-- Content for each system box -->
-      <div class="col-md-6" v-for="systemIbox in systemIboxs" :key="systemIbox.id">
-        <RouterLink :to="{ name: systemIbox.link }">
-          <div class="ibox-system-header p-6 rounded-lg shadow-lg">
-            <div class="text-xl font-semibold">
-              {{ systemIbox.name }}
-            </div>
-            <div class="text-md font-semibold ibox-system-sub-body">
-              <p class="ibox-system-font-content">
-                {{ systemIbox.content }}
-              </p>
-            </div>
-          </div>
-        </RouterLink>
-      </div>
+  <div class="container">
+    <div class="row">
+      <form @submit.prevent="uploadFile">
+      {{ authStore.storeUser.id }}
+      <input type="file" @change="onFileChange" />
+      <button type="submit">Upload</button>
+    </form>
+    </div>
+  <div class="row">
+    <ReportSystem />
   </div>
+</div>
 </template>
 
 <style>

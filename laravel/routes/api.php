@@ -11,6 +11,8 @@ use App\Http\Controllers\PhotoPostController;
 use App\Http\Controllers\PostTypeController;
 use App\Http\Controllers\UserProfileController;
 use App\Models\PostType;
+use App\Models\UserProfile;
+use App\Models\UserPhoto;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -22,8 +24,18 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/users', function () {
-    return response()->json(User::all(), 200);
+Route::get('/get_all_users', function () {
+
+    $get_all_users = User::with('userProfiles', 'userPhotos')->get();
+
+    return response()->json($get_all_users, 200);
+    
+});
+
+Route::get('/user_profiles', function () {
+    return response()->json([
+        'user_profiles' => UserPhoto::all()
+    ], 200);
 });
 
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth:sanctum');

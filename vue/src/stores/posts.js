@@ -51,7 +51,7 @@ export const usePostsStore = defineStore("postsStore", {
 
 
     /********************* Create a Post *************************/
-    async createPost(formData) {
+    async createPost(payload) {
       try {
 
   
@@ -60,8 +60,9 @@ export const usePostsStore = defineStore("postsStore", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "multipart/form-data",
           },
-          body: JSON.stringify(formData),
+          body: payload,
         });
     
         const data = await res.json();

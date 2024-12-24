@@ -6,7 +6,6 @@ use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserPhoto;
-// use App\Models\Article;
 use Illuminate\Support\Str;
 
 class UserProfileController extends Controller
@@ -30,8 +29,10 @@ class UserProfileController extends Controller
             $fileName = time().'.'.$request->file->extension();  
             $request->file->move(public_path('uploads'), $fileName);
     
-            // Save the file path in the database
-            // File::create(['path' => $fileName]);
+            UserPhoto::create([
+                'user_id' => $request->user_id,
+                'photo_name' => $fileName
+            ]);
     
             return response()->json(['success' => 'File uploaded successfully.']);
         } else {
