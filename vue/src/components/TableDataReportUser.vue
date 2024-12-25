@@ -31,7 +31,6 @@ function formatDate(date: string): string {
   const day = d.getDate().toString().padStart(2, '0'); // หาวันที่ พร้อมเติม 0 ถ้าน้อยกว่า 10
   const month = (d.getMonth() + 1).toString().padStart(2, '0'); // หาชื่อเดือน (เริ่มจาก 0) พร้อมเติม 0
   const year = d.getFullYear(); // หาปี
-
   return `${day}/${month}/${year}`; // คืนค่ารูปแบบ dd/mm/yyyy
 }
 
