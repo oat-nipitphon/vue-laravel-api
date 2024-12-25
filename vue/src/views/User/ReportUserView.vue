@@ -1,39 +1,43 @@
 <script setup>
-import axiosAPI from "@/services/axiosAPI";
-import { ref, onMounted } from "vue";
-import TableDataReportUser from "@/components/TableDataReportUser.vue";
+import { useRouter, RouterLink } from "vue-router";
+import TableDataReportUser from "../../components/TableDataReportUser.vue";
 
-const userProfiles = ref([]);
-
-const getUserProfile = async () => {
-  const response = await axiosAPI.get('/api/user_profiles');
-  userProfiles.value = response.data.user_profiles;
-  console.log(userProfiles.value);
-};
-
-onMounted(async () => {
-  getUserProfile();
-});
+const router = useRouter();
 </script>
+
 <template>
-  <div class="container" style="margin-top: 30px;">
-    <h1>ReportUserView</h1>
-    <label> Table Report Users. </label>
-    <div class="row">
-    </div>
-    <div class="row" v-if="userProfiles.length">
-      <div
-        v-for="userProfile in userProfiles"
-        :key="userProfile.id"
-        class="col-md-4 text-center"
+  <div class="container">
+    <div class="d-flex justify-content-end"> <!-- class text-end -->
+      <RouterLink
+        type="button"
+        class="btn btn-md btn-primary"
+        :to="{ name: 'DashboardView' }"
       >
-      <img
-        :src="`/uploads/${userProfile.photo_name}`"
-        alt="User Image"
-        style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;"
-      />
-        <p>{{ userProfile.user_id }}</p>
-      </div>
+        back
+      </RouterLink>
+    </div>
+
+    <div class="row">
+      <TableDataReportUser />
     </div>
   </div>
 </template>
+<style>
+.ibox-table-data {
+  margin: auto;
+  margin-top: 30px;
+  max-width: 100%;
+}
+.table-data-header {
+  background-color: bisque;
+  font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+}
+.table-data-body {
+  background-color: white;
+  font-weight: 500;
+  font-size: 16;
+  text-justify: auto;
+}
+</style>

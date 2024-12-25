@@ -27,6 +27,20 @@ const authStore = useAuthStore();
           >
             Dashboard
           </RouterLink>
+          <RouterLink
+            v-if="authStore.storeUser"
+            :to="{ name: 'ReportUserView' }"
+            class="nav-top-left"
+          >
+            ReportUserView
+          </RouterLink>
+          <RouterLink
+            v-if="authStore.storeUser"
+            :to="{ name: 'ReportPostView' }"
+            class="nav-top-left"
+          >
+            ReportPostView
+          </RouterLink>
 
           <RouterLink
             v-if="!authStore.storeUser"

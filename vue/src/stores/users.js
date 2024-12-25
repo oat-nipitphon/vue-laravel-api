@@ -1,58 +1,26 @@
 import { defineStore } from "pinia";
 
-export const useUserProfilesStore = defineStore([
-    "usersStore", {
-        state: () => {
-            return {
-                usersto: null,
-                errors: {}
-            };
-        },
-        actions: {
-            async getUsers() {
-                const res = await fetch("/api/get_users", {
-                    method: 'get',
-                    headers: {
-                        Authorization: `${localStorage.getItem('token')}`,
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
-                const data = res.json();
-                
-                if(data.ok) {
-                    console.log("profiles store success :: ", data.response);
-                } else {
-                    console.log("profile store error :: ", data.errors);
-                }
-            }
-        },
+export const useDefineStoreUser = defineStore('usersStore', {
+    state: () => {
+        return {
+            reqUsers: null,
+            errors: {}
+        }
     },
-    "profilesStore", {
-        state: () => {
-            return {
-                profilesto: null,
-                errors: {}
-            };
-        },
-        actions: {
-            
-            async getProfiles() {
-                const res = await fetch("/api/get_profiles", {
-                    method: 'get',
-                    headers: {
-                        Authorization: `${localStorage.getItem('token')}`,
-                        "Content-Type": "multipart/form-data"
-                    }
-                });
-                const data = res.json();
-                
-                if(data.ok) {
-                    console.log("profiles store success :: ", data.response);
-                } else {
-                    console.log("profile store error :: ", data.errors);
+    actions: {
+        async apiUserProfilePhoto() {
+            const res = await fetch(`/api/userProfilePhoto`, {
+                method: "GET",
+                headers: {
+                    Auth: `${localStorage.getItem('token')}`
                 }
+            });
+            const data = await res.json();
+            if(data.errors){
+                this.errors = data.errors
+            }else {
+                this.reqUsers = data.req;
             }
-
-        },
-    },
-]);
+        }
+    }
+});

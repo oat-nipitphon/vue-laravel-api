@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
 import { usePostsStore } from "@/stores/posts";
+
 import { RouterLink } from "vue-router";
 
 const { getAllPosts } = usePostsStore();
