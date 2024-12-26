@@ -47,7 +47,6 @@
             </option>
             <option value="addNew">เพิ่มตัวเลือกใหม่</option>
           </select>
-
           <!-- Show input when "addNew" is selected -->
           <div
             v-if="formNewPost.postType === 'addNew'"
@@ -64,7 +63,6 @@
             />
           </div>
         </div>
-
         <label class="text-form">Title</label>
         <input
           placeholder="title a post"
@@ -87,7 +85,6 @@
         <label class="text-form">Upload Photo</label>
         <input type="file" @change="onFileChange" class="form-control" />
         <p v-if="errors.photo" class="error">{{ errors.photo[0] }}</p>
-
         <button type="submit" class="btn btn-success">Save</button>
       </form>
     </div>
@@ -100,6 +97,7 @@ import axiosAPI from "@/services/axiosAPI";
 import { useAuthStore } from "@/stores/auth";
 import { usePostsStore } from "@/stores/posts";
 import { usePostTypeStore } from "@/stores/postType";
+import { useDefineStoreUsers } from "@/stores/users";
 import { reactive, ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 
