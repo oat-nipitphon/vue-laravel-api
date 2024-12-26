@@ -1,17 +1,15 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
-import { RouterLink } from "vue-router";
-import ImageFile from "@/components/ImageFile.vue";
-import UploadFilePhoto from "@/components/UploadFilePhoto.vue";
 
-const authStore = useAuthStore();
-const users = ref([]);
+const authCheckTOKEN = useAuthStore();
+const checkToken = ref([]);
 
 onMounted(async () => {
-  if (!authStore.storeUser) {
-    await authStore.getUsers();
-  }
+
+  checkToken.value = await authCheckTOKEN.checkTOKEN();
+  // console.log(checkToken);
+
 });
 </script>
 

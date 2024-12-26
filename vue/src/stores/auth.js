@@ -2,36 +2,53 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
+        storeToken: null,
         storeUser: null,
         errors: {},
     }),
     actions: {
 
+        async checkTOKEN () {
+            try {
+                const token = localStorage.getItem("token"); // Get token from localStorage
+
+                if (token) {
+                  console.log("Token found:", token);
+                  this.storeToken = token; // Update store state
+                  return token; // Return token
+                } else {
+                  console.log("No token found.");
+                  this.storeToken = null
+                }
+            } catch (error) {
+                console.error("stores auth function authCheckTOKEN Error ::", error);
+            }
+        },
+
         // Get User
         async getUsers() {
             try {
                 const token = localStorage.getItem('token');
-                if (token) {
-                    const res = await fetch('/api/user', {
-                        method: 'GET',
-                        headers: {
-                            authorization: `Bearer ${token}`,
-                        },
-                    });
+                
+                if (!token) {
+                    console.log();
+                    return this.storeUser = null;
+                } 
 
-                    if (res.ok) {
+                const res = await fetch('/api/user', {
+                    method: 'GET',
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                });
 
-                        this.storeUser = await res.json();
-
-                    } else {
-                        console.error('Failed to fetch user data');
-                    }
-
-
-
-                } else {
-                    console.log("Get Users false < !Token > ");
+                const data = await res.json();
+                if (data.error) {
+                    console.error('Failed to fetch user data');
                 }
+                
+                return this.storeUser = data.user; 
+
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }

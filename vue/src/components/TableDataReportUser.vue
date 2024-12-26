@@ -118,7 +118,7 @@ const columns = [
     render(data) {
       return `
         <div class="btn-group dropend">
-          <button class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" type="button" 
+          <button class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split" type="button" 
             data-bs-toggle="dropdown" aria-expanded="false">
             Event
           </button>
@@ -175,12 +175,12 @@ function onDelete(userId) {
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 .span-header {
   font-size: 18px;
-  font-weight: 500;
-  margin-left: 30px;
+  font-weight: 700;
+  /* margin-left: 30px; */
   padding: auto;
 }
 .ibox-table-report {
