@@ -7,8 +7,7 @@ const router = useRouter();
 
 <template>
   <div class="container">
-    <!-- class text-end || d-flex justify-content-end-->
-    <div class="text-end"> 
+    <div class="d-flex justify-content-end"> 
       <RouterLink
         type="button"
         class="btn btn-md btn-primary"

@@ -2,26 +2,20 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
-        storeToken: null,
         storeUser: null,
         errors: {},
     }),
     actions: {
 
-        async checkTOKEN () {
+        async checkToken() {
             try {
-                const token = localStorage.getItem("token"); // Get token from localStorage
 
-                if (token) {
-                  console.log("Token found:", token);
-                  this.storeToken = token; // Update store state
-                  return token; // Return token
-                } else {
-                  console.log("No token found.");
-                  this.storeToken = null
+                if (localStorage.getItem('token')) {
+                    console.log("store token");
                 }
+
             } catch (error) {
-                console.error("stores auth function authCheckTOKEN Error ::", error);
+                console.error("store check token :: ", error);
             }
         },
 
@@ -29,26 +23,24 @@ export const useAuthStore = defineStore('authStore', {
         async getUsers() {
             try {
                 const token = localStorage.getItem('token');
-                
-                if (!token) {
-                    console.log();
-                    return this.storeUser = null;
-                } 
-
-                const res = await fetch('/api/user', {
-                    method: 'GET',
-                    headers: {
-                        authorization: `Bearer ${token}`,
-                    },
-                });
-
-                const data = await res.json();
-                if (data.error) {
-                    console.error('Failed to fetch user data');
+                if (token) {
+                    const res = await fetch('/api/user', {
+                        method: 'GET',
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        },
+                    });
+                  
+                    if (res.ok) {
+                        // const data = await res.json();
+                        // console.log(data.res.user);
+                        this.storeUser = await res.json();
+                    } else {
+                        console.error('Failed to fetch user data');
+                    }
+                } else {
+                    console.log("Get Users false < !Token > ");
                 }
-                
-                return this.storeUser = data.user; 
-
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
@@ -66,9 +58,12 @@ export const useAuthStore = defineStore('authStore', {
                 const data = await res.json();
                 localStorage.setItem('token', data.token);
                 this.storeUser = data.user;
-                console.log(data);
+                console.log("store auth (fn)=>authenticate ", data.user);
 
-                this.router.push({ name: "DashboardView" });
+                this.router.push({ 
+                    name: "DashboardView", 
+                    params: { user: data.user }
+                });
             } else {
 
                 this.errors = data.errors;

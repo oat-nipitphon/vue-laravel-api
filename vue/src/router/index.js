@@ -9,6 +9,7 @@ import NewPostView from '@/views/Post/NewPostView.vue'
 import DetailPostView from '@/views/Post/DetailPostView.vue'
 import UpdatePostView from '@/views/Post/UpdatePostView.vue'
 import ReportUserView from '@/views/User/ReportUserView.vue'
+import EventFormView from '@/views/User/EventFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,7 +32,7 @@ const router = createRouter({
       meta: { guest: true }
     },
     {
-      path: '/Dashboard',
+      path: '/DashboardView',
       name: 'DashboardView',
       component: DashboardView,
       meta: { auth: true }
@@ -40,6 +41,12 @@ const router = createRouter({
       path: '/ReportUserView',
       name: 'ReportUserView',
       component: ReportUserView,
+      meta: { auth: true }
+    },
+    {
+      path: '/EventFormView',
+      name: 'EventFormView',
+      component: EventFormView,
       meta: { auth: true }
     },
     {

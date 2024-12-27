@@ -2,12 +2,12 @@
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 
-const authCheckTOKEN = useAuthStore();
-const checkToken = ref([]);
+// const authCheckTOKEN = useAuthStore();
+// const checkToken = ref([]);
 
 onMounted(async () => {
 
-  checkToken.value = await authCheckTOKEN.checkTOKEN();
+  // checkToken.value = await authCheckTOKEN.checkTOKEN();
   // console.log(checkToken);
 
 });

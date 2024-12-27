@@ -5,16 +5,12 @@
         DataTables + Vue 3 Example + Bootstrap 5 Styled DataTable
       </span>
     </div>
-
-    <div class="ibox-table-report table-responsive">
-      <!-- <DataTable
-        width="100%"
-        class="table table-hover table-striped"
+    <div class="table table-hover table-striped">
+      <DataTable
         :columns="columns"
         :data="userProfilePhotos"
-      > -->
-      <DataTable :columns="columns" :data="userProfilePhotos" :options="options">
-
+        :options="options"
+      >
         <thead></thead>
         <tbody></tbody>
       </DataTable>
@@ -24,31 +20,15 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { useDefineStoreUsers } from "@/stores/users";
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net-bs5";
 DataTable.use(DataTablesCore);
 
+const router = useRouter();
 const usersStore = useDefineStoreUsers();
 const userProfilePhotos = ref([]);
-
-onMounted(async () => {
-  await usersStore.apiUserProfilePhoto();
-  userProfilePhotos.value = usersStore.reqUsers.map((user) => ({
-    id: user.id || null,
-    photo: user.user_photos?.photo_name || "PhotoDefault.png",
-    status: user.status || "N/A",
-    email: user.email || "N/A",
-    fullname: [
-      user.user_profiles?.title_name || "",
-      user.user_profiles?.first_name || "",
-      user.user_profiles?.last_name || "",
-    ]
-      .filter(Boolean)
-      .join(" "),
-    created_at: formatDate(user.created_at),
-  }));
-});
 
 function formatDate(date) {
   const d = new Date(date);
@@ -57,31 +37,6 @@ function formatDate(date) {
   const year = d.getFullYear();
   return `${day}/${month}/${year}`;
 }
-
-const options = reactive({
-  paging: true,
-  searching: true,
-  ordering: true,
-  initComplete() {
-    const table = document.querySelector(".ibox-table-report table");
-
-    // Attach event listeners
-    table.addEventListener("click", (e) => {
-      if (e.target.matches(".event-show")) {
-        const userId = e.target.getAttribute("data-id");
-        onShow(userId);
-      }
-      if (e.target.matches(".event-edit")) {
-        const userId = e.target.getAttribute("data-id");
-        onEdit(userId);
-      }
-      if (e.target.matches(".event-delete")) {
-        const userId = e.target.getAttribute("data-id");
-        onDelete(userId);
-      }
-    });
-  },
-});
 
 const columns = [
   {
@@ -145,20 +100,82 @@ const columns = [
   },
 ];
 
-function onShow(userId) {
-  console.log("Show userId:", userId);
-}
+const options = reactive({
+  paging: true,
+  searching: true,
+  ordering: true,
+  initComplete() {
+    const table = document.querySelector(".ibox-table-report table");
+
+    // Attach event listeners
+    table.addEventListener("click", (e) => {
+      if (e.target.matches(".event-show")) {
+        const userId = e.target.getAttribute("data-id");
+        // onShow(userId);
+
+        try {
+          const onShow = (userId) => {
+            console.log("noShow function :: ", userId);
+          }
+        } catch (error) {
+          console.error("table addEvent error :: ", error);
+        }
+
+      }
+      if (e.target.matches(".event-edit")) {
+        const userId = e.target.getAttribute("data-id");
+        onEdit(userId);
+      }
+      if (e.target.matches(".event-delete")) {
+        const userId = e.target.getAttribute("data-id");
+        onDelete(userId);
+      }
+    });
+  },
+});
+
+// function onShow(userId) {
+//   console.log("Show userId:", userId);
+//   try {
+//   } catch (error) {
+//     console.error("onShow function error :: ", error);
+//   }
+// }
 
 function onEdit(userId) {
   console.log("Edit userId:", userId);
+  try {
+  } catch (error) {
+    console.error("onEdit function error :: ", error);
+  }
 }
 
 function onDelete(userId) {
   console.log("Delete userId:", userId);
+  try {
+  } catch (error) {
+    console.error("onDelete function error :: ", error);
+  }
 }
 
+onMounted(async () => {
+  await usersStore.apiUserProfilePhoto();
+  userProfilePhotos.value = usersStore.reqUsers.map((user) => ({
+    id: user.id || null,
+    photo: user.user_photos?.photo_name || "PhotoDefault.png",
+    status: user.status || "N/A",
+    email: user.email || "N/A",
+    fullname: [
+      user.user_profiles?.title_name || "",
+      user.user_profiles?.first_name || "",
+      user.user_profiles?.last_name || "",
+    ]
+      .filter(Boolean)
+      .join(" "),
+    created_at: formatDate(user.created_at),
+  }));
+});
 </script>
-
 
 <style>
 @import "bootstrap";

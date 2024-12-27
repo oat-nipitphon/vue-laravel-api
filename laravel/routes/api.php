@@ -15,20 +15,16 @@ use App\Models\PostType;
 use App\Models\UserProfile;
 use App\Models\UserPhoto;
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth:sanctum');
-
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth:sanctum');
 
-Route::apiResource('/users', UserController::class);
-// ->middleware('auth:sanctum');
+Route::apiResource('/users', UserController::class)->middleware('auth:sanctum');
 Route::get('/userProfilePhoto', function () {
 
     $userProfilePhoto = User::with('userProfiles', 'userPhotos', 'posts')->get();
@@ -43,8 +39,7 @@ Route::get('/userProfilePhoto', function () {
 Route::apiResource('/posts', PostController::class)->middleware('auth:sanctum');
 Route::get('/post_types', [PostTypeController::class, 'index'])->middleware('auth:sanctum');
 
-// Route API Success insert file name and move file folder pubilc laravel
-Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
+
 
 
 
@@ -55,15 +50,13 @@ Route::get('/get_users', function () {
         'users' => User::all()
     ], 200);
 });
-
 Route::get('/get_user_profiles', function () {
     return response()->json([
         'user_profiles' => UserProfile::all()
     ], 200);
 });
 
-
-
+Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
 Route::post('/upload_file_photo', [UserProfileController::class, 'uploadPhoto']);
 
 

@@ -32,9 +32,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $id)
     {
-        //
+        // 
     }
 
     /**
@@ -42,7 +42,16 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Show user profile and photo
+        try {
+            return [
+                $id
+            ];
+        } catch (\Exception $e) {
+            return [
+                $e->getMessage(),
+            ];
+        }
     }
 
     /**
@@ -50,14 +59,35 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Update user profile and photo
+        try { 
+            return [
+                $request,
+                $id
+            ];
+        } catch (\Exception $e) {
+            return [
+                $e->getMessage(),
+            ];
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, $reqDelete)
     {
-        //
+        // Delete user profile photo 
+        //  ** check status delete string(user,profile,photo)
+        try {
+            return response()->json([
+                'id' => $id,
+                'reqDelete' => $reqDelete
+            ], 200);
+        } catch (\Exception $e) {
+            return [
+                $e->getMessage(),
+            ];
+        }
     }
 }

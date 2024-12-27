@@ -1,73 +1,71 @@
 <script setup>
+import { onMounted, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 import NavTop from "./layouts/NavTop.vue";
 import { useAuthStore } from "./stores/auth";
 
 const authStore = useAuthStore();
+// const userName = authStore.storeUser.name;
+// console.log(userName);
+
+const users = ref([]);
+onMounted(async () => {});
 </script>
 
 <template>
   <div class="col-lg-12">
-    <div class="row">
-      <header>
-        <nav>
-          <RouterLink
-            v-if="!authStore.storeUser"
-            :to="{ name: 'HomeView' }"
-            class="nav-top-left"
-          >
-            Home
-          </RouterLink>
+    <header>
+      <nav>
+        <div class="row" v-if="authStore.storeUser">
+          <div class="col-md-2">
+            <RouterLink
+              v-if="authStore.storeUser"
+              :to="{ name: 'DashboardView' }"
+              class="nav-top"
+            >
+              Dashboard
+            </RouterLink>
+          </div>
+          <div class="col-md-4 nav-top-welcome" v-if="authStore.storeUser">
+            Welcome {{ authStore.storeUser.name }} !
+          </div>
+          <div class="col-md-4 nav-top-welcome" v-else>
+            Please log in to access your account.
+          </div>
+          <div class="col-md-4">
+            <label class="nav-top-status-email"> status email :: </label>
+            <label style="color: greenyellow"> Email Verified! </label>
+            <label style="color: yellow"> Email Not verified! </label>
+          </div>
+          <div class="col-md-2">
+            <form class="" @submit.prevent="authStore.logout">
+              <button type="submit" class="btn btn-danger btn-sm">
+                Logout
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10" v-if="!authStore.storeUser"></div>
+          <div class="col-md-2" v-if="!authStore.storeUser">
+            <div class="row">
+              <div class="col-md-6">
+                <RouterLink :to="{ name: 'LoginView' }" class="">
+                  Login
+                </RouterLink>
+              </div>
+              <div class="col-md-6">
+                <RouterLink :to="{ name: 'RegisterView' }" class="">
+                  Register
+                </RouterLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-          <RouterLink
-            v-if="authStore.storeUser"
-            :to="{ name: 'DashboardView' }"
-            class="nav-top-left"
-          >
-            Dashboard
-          </RouterLink>
-          <RouterLink
-            v-if="authStore.storeUser"
-            :to="{ name: 'ReportUserView' }"
-            class="nav-top-left"
-          >
-            ReportUserView
-          </RouterLink>
-          <RouterLink
-            v-if="authStore.storeUser"
-            :to="{ name: 'ReportPostView' }"
-            class="nav-top-left"
-          >
-            ReportPostView
-          </RouterLink>
-
-          <RouterLink
-            v-if="!authStore.storeUser"
-            :to="{ name: 'LoginView' }"
-            class="nav-top-right"
-          >
-            Login
-          </RouterLink>
-
-          <RouterLink
-            v-if="!authStore.storeUser"
-            :to="{ name: 'RegisterView' }"
-            class="nav-top-right"
-          >
-            Register
-          </RouterLink>
-
-          <form
-            class="nav-top-right"
-            v-if="authStore.storeUser"
-            @submit.prevent="authStore.logout"
-          >
-            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
-          </form>
-        </nav>
-      </header>
-    </div>
     <div class="container">
       <RouterView />
     </div>
@@ -76,19 +74,25 @@ const authStore = useAuthStore();
 
 <style scoped>
 header {
+  width: 100%;
   margin-top: 0px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
 }
-.nav-top-left {
-  font-weight: 500;
+.nav-top {
+  font-weight: 700;
   color: white;
   font-size: 16px;
-  text-align: left;
 }
-
-.nav-top-right {
-  font-weight: 300;
+.nav-top-welcome {
+  font-weight: 700;
   color: white;
   font-size: 16px;
-  text-align: right;
+}
+.nav-top-status-email {
+  font-weight: 700;
+  color: white;
+  font-size: 16px;
 }
 </style>

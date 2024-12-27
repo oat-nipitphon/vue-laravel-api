@@ -52,6 +52,7 @@ onMounted(() => (errors.value = {}));
           placeholder="email@gmail.com"
           type="email"
           v-model="formData.email"
+          autocomplete="email"
         />
         <p v-if="errors.email" class="error">{{ errors.email[0] }}</p>
         <label style="margin-top: 15px;"> Password </label>
@@ -60,6 +61,7 @@ onMounted(() => (errors.value = {}));
           placeholder="Abc123456789"
           type="password"
           v-model="formData.password"
+          autocomplete="current-password"
         />
         <p v-if="errors.password" class="error">{{ errors.password[0] }}</p>
         <button
