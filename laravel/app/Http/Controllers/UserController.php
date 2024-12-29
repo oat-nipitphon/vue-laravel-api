@@ -69,16 +69,73 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-
-            dd($request);
-            
+            // Validate the incoming request
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:users,email,' . $id,
+                'status' => 'nullable|string|max:50',
+                'titleName' => 'nullable|string|max:50',
+                'firstName' => 'nullable|string|max:50',
+                'lastName' => 'nullable|string|max:50',
+                'address' => 'nullable|string|max:255',
+                'telPhone' => 'nullable|string|max:20',
+                'birthDay' => 'nullable|date',
+                'photo' => 'nullable|file|mimes:jpeg,png,jpg|max:10240', // Example for a photo field
+            ]);
+    
+            // Retrieve the user
+            $user = User::findOrFail($id);
+    
+            // Update user details
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->status = $validated['status'] ?? $user->status;
+    
+            // Update related UserProfile if provided
+            if ($user->userProfiles) {
+                $user->userProfiles->update([
+                    'title_name' => $validated['titleName'] ?? $user->userProfiles->title_name,
+                    'first_name' => $validated['firstName'] ?? $user->userProfiles->first_name,
+                    'last_name' => $validated['lastName'] ?? $user->userProfiles->last_name,
+                    'address' => $validated['address'] ?? $user->userProfiles->address,
+                    'tel_phone' => $validated['telPhone'] ?? $user->userProfiles->tel_phone,
+                    'birth_day' => $validated['birthDay'] ?? $user->userProfiles->birth_day,
+                ]);
+            }
+    
+            // Handle file upload for photo
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('user_photos', 'public');
+                $user->userPhotos()->updateOrCreate(
+                    ['user_id' => $user->id],
+                    ['photo_path' => $photoPath]
+                );
+            }
+    
+            // Save the user
+            $user->save();
+    
+            return response()->json([
+                'status' => 200,
+                'message' => 'User updated successfully.',
+                'user' => $user,
+            ]);
+    
+        } catch (\Illuminate\Validation\ValidationException $validationError) {
+            return response()->json([
+                'status' => 422,
+                'message' => 'Validation Error',
+                'errors' => $validationError->errors(),
+            ], 422);
         } catch (\Exception $error) {
             return response()->json([
                 'status' => 500,
-                'error' => $error->getMessage()
+                'message' => 'An error occurred while updating the user.',
+                'error' => $error->getMessage(),
             ]);
         }
     }
+    
 
     /**
      * Remove the specified resource from storage.
