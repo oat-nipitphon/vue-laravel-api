@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
+import { useRoute, useRouter, RouterLink } from "vue-router";
 import { useDefineStoreUser } from "@/stores/users";
 import DataTable from "datatables.net-vue3";
 import DataTablesCore from "datatables.net-bs5";
 DataTable.use(DataTablesCore);
 
+const router = useRouter();
 const usersStore = useDefineStoreUser();
 const userProfilePhotos = ref([]);
 
@@ -123,6 +125,14 @@ const options = reactive({
 
 function onShow(userId) {
   console.log("Show userId:", userId);
+  // router.push(`/users/`+userId);
+  router.push({
+    name: 'ShowUserDetail',
+    params: {
+      id: userId
+    },
+  });
+
 }
 
 function onEdit(userId) {

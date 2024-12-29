@@ -42,7 +42,25 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $user_show = User::findOrFail($id);
+            
+            if($user_show){
+                $user_show = User::with('userProfiles', 'userPhotos')->where('id', $id)->first();
+                return response()->json([
+                    'status' => 200,
+                    'user' => $user_show
+                ], 200);
+                // dd($user_show);
+            } else {
+                dd($user_show);
+            }
+        } catch (\Exception $error) {
+            return response()->json([
+                'message' => "laravel function error :",
+                'error' => $error->getMessage()
+            ]);
+        }
     }
 
     /**

@@ -31,4 +31,6 @@ class UserProfile extends Model
         return $this->hasOne(UserProfile::class);
     }
 
+    
+
 }

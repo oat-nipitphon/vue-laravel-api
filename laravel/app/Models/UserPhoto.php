@@ -19,8 +19,8 @@ class UserPhoto extends Model
         'photo_data'
     ];
 
-    public function user () :HasOne {
-        return $this->hasOne(User::class);
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
 }

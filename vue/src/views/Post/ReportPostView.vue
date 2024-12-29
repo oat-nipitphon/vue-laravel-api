@@ -42,7 +42,7 @@ onMounted(async () => {
           <div>
             <RouterLink
               :to="{
-                name: 'DetailPostView',
+                name: 'ShowPostDetail',
                 params: { id: post.id },
               }"
             >

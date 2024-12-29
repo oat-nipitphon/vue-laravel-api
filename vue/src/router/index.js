@@ -6,9 +6,11 @@ import LoginView from '@/views/Auth/LoginView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import ReportPostView from '@/views/Post/ReportPostView.vue'
 import NewPostView from '@/views/Post/NewPostView.vue'
-import DetailPostView from '@/views/Post/DetailPostView.vue'
+import ShowPostDetail from '@/views/Post/ShowPostDetail.vue'
 import UpdatePostView from '@/views/Post/UpdatePostView.vue'
 import ReportUserView from '@/views/User/ReportUserView.vue'
+import ShowUserDetail from '@/views/User/ShowUserDetail.vue'
+import UpdateUserView from '@/views/User/UpdateUserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +45,18 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
+      path: '/users/:id',
+      name: 'ShowUserDetail',
+      component: ShowUserDetail,
+      meta: { auth: true }
+    },
+    {
+      path: '/users/update/:id',
+      name: 'UpdateUserView',
+      component: UpdateUserView,
+      meta: { auth: true }
+    },
+    {
       path: '/ReportPost',
       name: 'ReportPostView',
       component: ReportPostView,
@@ -56,8 +70,8 @@ const router = createRouter({
     },
     {
       path: '/posts/:id',
-      name: 'DetailPostView',
-      component: DetailPostView,
+      name: 'ShowPostDetail',
+      component: ShowPostDetail,
       meta: { auth: true }
     },
     {
