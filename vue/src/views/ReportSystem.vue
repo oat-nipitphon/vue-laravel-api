@@ -37,35 +37,33 @@ const systemIboxs = ref([
           v-for="systemIbox in systemIboxs"
           :key="systemIbox.id"
         >
-          <img src="https://i.imgur.com/w1Bdydo.jpg" class="w-full" />
-          <div class="flex justify-center -mt-8">
-            <img
-              src="https://i.imgur.com/8Km9tLL.jpg"
-              class="rounded-full border-solid border-white border-2 -mt-3"
-            />
-          </div>
-          <div class="text-center px-3 pb-6 pt-2">
-            <h3 class="text-black text-sm bold font-sans">
-              {{ systemIbox.name }}
-            </h3>
-            <p class="mt-2 font-sans font-light text-grey-700">
-              {{ systemIbox.content }}
-            </p>
-          </div>
-          <div class="flex justify-center pb-3 text-grey-dark">
-            <div class="text-center mr-3 border-r pr-3">
-              <RouterLink :to="{ name: systemIbox.link }">
-                <!-- <h2>42</h2>  Check status use system-->
-                <span class="text-sm">ADMIN</span>
-              </RouterLink>
+          <RouterLink :to="{ name: systemIbox.link }">
+            <div class="row">
+              <img src="https://i.imgur.com/w1Bdydo.jpg" class="w-full" />
+              <div class="flex justify-center -mt-8">
+                <img
+                  src="https://i.imgur.com/8Km9tLL.jpg"
+                  class="rounded-full border-solid border-white border-2 -mt-3"
+                />
+              </div>
+              <div class="text-center px-3 pb-6 pt-2">
+                <h3 class="text-black text-sm bold font-sans">
+                  {{ systemIbox.name }}
+                </h3>
+                <p class="mt-2 font-sans font-light text-grey-700">
+                  {{ systemIbox.content }}
+                </p>
+              </div>
+              <div class="flex justify-center pb-3 text-grey-dark">
+                <div class="text-center mr-3 border-r pr-3">
+                  <span class="text-sm">ADMIN</span>
+                </div>
+                <div class="text-center">
+                  <span class="text-sm">USER</span>
+                </div>
+              </div>
             </div>
-            <div class="text-center">
-              <RouterLink :to="{ name: systemIbox.link }">
-                <!-- <h2>42</h2>  Check status use system-->
-                <span class="text-sm">USER</span>
-              </RouterLink>
-            </div>
-          </div>
+          </RouterLink>
         </div>
       </div>
     </div>

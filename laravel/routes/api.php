@@ -27,8 +27,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth:sanctum');
 
-Route::apiResource('/users', UserController::class);
-// ->middleware('auth:sanctum');
+Route::apiResource('/users', UserController::class)
+->middleware('auth:sanctum');
 Route::get('/userProfilePhoto', function () {
 
     $userProfilePhoto = User::with('userProfiles', 'userPhotos', 'posts')->get();
