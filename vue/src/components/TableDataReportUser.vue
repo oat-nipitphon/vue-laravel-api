@@ -137,6 +137,14 @@ function onShow(userId) {
 
 function onEdit(userId) {
   console.log("Edit userId:", userId);
+  console.log("Show userId:", userId);
+  // router.push(`/users/`+userId);
+  router.push({
+    name: 'UpdateUserView',
+    params: {
+      id: userId
+    },
+  });
 }
 
 function onDelete(userId) {
