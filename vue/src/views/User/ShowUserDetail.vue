@@ -85,7 +85,8 @@ onMounted(async () => {
           
         </div>
         <div class="row">
-            <button class="btn btn-sm btn-success">Update</button>
+            <button type="submit" class="btn btn-sm btn-success">Update</button>
+            <button type="submit" class="btn btn-sm btn-danger">Reset</button>
         </div>
       </form>
     </div>
