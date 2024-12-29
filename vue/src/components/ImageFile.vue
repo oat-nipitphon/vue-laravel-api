@@ -11,7 +11,7 @@ const userPhotoURL = ref(null);
 
 const formData = reactive({
   user_id: null,
-  filePhoto: null
+  filePhoto: null,
 });
 
 const handleFileChange = (event) => {
@@ -23,12 +23,12 @@ const handleFileChange = (event) => {
 };
 
 const showInputFileEXP = (file) => {
-  // Check status file show exp input 
+  // Check status file show exp input
   if (file && file.type.startsWith("image/")) {
     userPhotoURL.value = URL.createObjectURL(file);
     console.log("Preview URL:", userPhotoURL.value);
   } else {
-    event.target.value = "";  // Reset file input
+    event.target.value = ""; // Reset file input
     console.log("Please select a valid image file.");
   }
   return file;
@@ -37,38 +37,45 @@ const showInputFileEXP = (file) => {
 const openFileInput = () => {
   fileInput.value.click();
 };
-
 </script>
 
 <template>
   <div class="flex-container">
     <form @submit.prevent="uploadUserPhoto(formData)">
-      <div class="row">
-        <img 
-          :src="userPhotoURL || 'https://png.pngtree.com/png-clipart/20190920/original/pngtree-file-upload-icon-png-image_4646955.jpg'"
-          alt="Image Preview"
-          style="width: 250px; height: 150px;"
-        />
-      </div>
-      <div class="row">
-        <input
-          ref="fileInput"
-          type="file"
-          @change="handleFileChange"
-          accept="image/*"
-          hidden
-        />
-        <button type="button" class="btn btn-sm btn-primary" @click="openFileInput">
-          Choose File
-        </button>
-      </div>
-      <div class="row" style="margin-top: 50px;">
-        <button type="submit" class="btn btn-sm btn-success">Upload</button>
+      <div class="ibox-file-photo">
+        <div class="row">
+          <img
+            :src="
+              userPhotoURL ||
+              'https://png.pngtree.com/png-clipart/20190920/original/pngtree-file-upload-icon-png-image_4646955.jpg'
+            "
+            alt="Image Preview"
+            style="width: 250px; height: 150px"
+          />
+        </div>
+        <div class="row">
+          <input
+            ref="fileInput"
+            type="file"
+            @change="handleFileChange"
+            accept="image/*"
+            hidden
+          />
+          <button
+            type="button"
+            class="btn btn-sm btn-primary"
+            @click="openFileInput"
+          >
+            Choose File
+          </button>
+        </div>
+        <div class="row" style="margin-top: 50px">
+          <button type="submit" class="btn btn-sm btn-success">Upload</button>
+        </div>
       </div>
     </form>
   </div>
 </template>
-
 
 <style>
 .flex-container {
