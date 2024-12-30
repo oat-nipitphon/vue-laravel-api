@@ -27,6 +27,12 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware('auth:sanctum');
 
+Route::apiResource('/posts', PostController::class)->middleware('auth:sanctum');
+Route::get('/post_types', [PostTypeController::class, 'index'])->middleware('auth:sanctum');
+
+// Route API Success insert file name and move file folder pubilc laravel
+Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
+
 Route::apiResource('/users', UserController::class)
 ->middleware('auth:sanctum');
 Route::get('/userProfilePhoto', function () {
@@ -39,13 +45,6 @@ Route::get('/userProfilePhoto', function () {
     ], 200);
     
 });
-
-Route::apiResource('/posts', PostController::class)->middleware('auth:sanctum');
-Route::get('/post_types', [PostTypeController::class, 'index'])->middleware('auth:sanctum');
-
-// Route API Success insert file name and move file folder pubilc laravel
-Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
-
 
 
 // **********************  TEST ROUTE API **************************** //
