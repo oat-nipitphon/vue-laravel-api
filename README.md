@@ -1,2 +1,1 @@
-# vuejs-laravel-api
-vuejs-laravel-api
+# vue-laravel-api
