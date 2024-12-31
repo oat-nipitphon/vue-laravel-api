@@ -35,6 +35,7 @@ Route::post('/uploadFilePhoto', [UserProfileController::class, 'upload']);
 
 Route::apiResource('/users', UserController::class)
 ->middleware('auth:sanctum');
+
 Route::get('/userProfilePhoto', function () {
 
     $userProfilePhoto = User::with('userProfiles', 'userPhotos', 'posts')->get();
